@@ -16,6 +16,7 @@ public class Ship : BaseSpaceObject
     public new void Awake()
     {
         base.Awake();
+        myCamera = GameObject.FindGameObjectWithTag("Player1Camera");
         movement = GetComponent<Movement>();
         shipName = name;
     }
