@@ -2,17 +2,10 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public enum ShipType
-{
-    Player,
-    Enemy
-}
-
 [RequireComponent(typeof(Weapon))]
 [RequireComponent(typeof(Movement))]
 public class Ship : BaseSpaceObject
 {
-    protected ShipType shipType;
     public bool dead;
     public GameObject myCamera;
     Vector3 cameraPosition;
@@ -23,17 +16,20 @@ public class Ship : BaseSpaceObject
     public new void Awake()
     {
         base.Awake();
-
-    }
-
-    public void Setup(Vector2 startLocation)
-    {
-
+        movement = GetComponent<Movement>();
+        shipName = name;
     }
 
     public new void Update()
     {
         base.Update();
-
+        if (health <= 0) Die();
+        if (canvas != null) canvas.transform.position = transform.position;
+        if (myCamera != null)
+        {
+            cameraPosition = transform.position;
+            cameraPosition.z = -10f;
+            myCamera.transform.position = cameraPosition;
+        }
     }
 }
