@@ -14,6 +14,7 @@ public class Player : Ship, IHealth
     new void Awake()
     {
         base.Awake();
+        weapon = GetComponent<Weapon>();
         MAX_HEALTH *= 10f;
         health = MAX_HEALTH;
     }
@@ -23,6 +24,7 @@ public class Player : Ship, IHealth
         base.Update();
         moveDistance = Input.GetAxisRaw("Vertical");
         rotationAngle = Input.GetAxisRaw("Horizontal");
+        if (Input.GetButtonDown("Shoot")) weapon.Shoot(transform.eulerAngles.z, false);
     }
 
     void FixedUpdate()
